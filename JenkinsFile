@@ -148,6 +148,7 @@ def bitbucketCheckout() {
         }
         else if("${currentBuild.buildCauses}".contains("BranchEventCause")) {
             echo "git checkout ${env.BRANCH_NAME}"
+            
             checkout scm
         }
     }
