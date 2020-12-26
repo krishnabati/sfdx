@@ -143,7 +143,7 @@ def bitbucketCheckout() {
         // determine if the build was trigger from a git event or manually built with parameters
         if ("${currentBuild.buildCauses}".contains("UserIdCause")) {
             echo "git checkout ${params.source_branch}"
-            // git checkout the branch
+            // git checkout the branch 
             git credentialsId: 'pwId', url:'repoUrl', branch: "${params.source_branch}"
         }
         else if("${currentBuild.buildCauses}".contains("BranchEventCause")) {
