@@ -26,7 +26,7 @@ pipeline {
     stages {
         stage('Initializing') {
             steps {
-                echo "Initializing git"
+                echo "Initializing"
                 // determine if the build was trigger from a git event or manually built with parameters
                 echo "${currentBuild.buildCauses}"
                 // all current build environment variables
