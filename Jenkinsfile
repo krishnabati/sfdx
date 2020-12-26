@@ -167,6 +167,7 @@ def getSFEvnParams() {
     return output;
 }
 
+
 def command(script) {
    if (isUnix()) {
        return sh(returnStatus: true, script: script);
