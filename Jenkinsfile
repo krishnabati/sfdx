@@ -51,6 +51,7 @@ echo "Previous known Successful GIT Commit: ${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT
 
 def salesforceDeploy() {
     authSF()
+    command "export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true"
     def varsfdx = tool 'sfdx'
   def targetEnvironment='DevHub'
    // def varsfdx='/usr/local/bin/sfdx'
