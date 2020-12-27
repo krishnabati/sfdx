@@ -58,7 +58,7 @@ def salesforceDeploy() {
     else {
         JOBURL = "${env.BRANCH_NAME}"
     }
-    sh "sudo su -s /bin/bash jenkins"
+    // sh "sudo su -s /bin/bash jenkins"
     // sh "export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true"
     def JOBPATH="/var/lib/jenkins/workspace/multi_${JOBURL}"
     command "cd ${JOBPATH}"
