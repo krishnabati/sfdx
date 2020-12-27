@@ -50,10 +50,11 @@ echo "Previous known Successful GIT Commit: ${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT
 }
 
 def salesforceDeploy() {
-    
-    //def varsfdx = tool 'sfdx'
-    def varsfdx='/usr/local/bin/sfdx'
-    rc2 = command "${varsfdx} force:auth:sfdxurl:store -f authjenkinsci.txt -a targetEnvironment"
+    authSF()
+    def varsfdx = tool 'sfdx'
+  
+   // def varsfdx='/usr/local/bin/sfdx'
+    rc2 = command "${varsfdx}/sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a targetEnvironment"
     if (rc2 != 0) {
        echo " 'SFDX CLI Authorization to target env has failed.'"
     }
@@ -121,10 +122,10 @@ def authSF() {
     }
     else if("${currentBuild.buildCauses}".contains("BranchEventCause")) {
         if(env.BRANCH_NAME == 'master' || env.CHANGE_TARGET == 'master') {
-            SF_AUTH_URL = env.SFDX_DEV
+            SF_AUTH_URL = env.SFDX_AUTH_URL
         }
         else { // {PR} todo - better determine if its a PR env.CHANGE_TARGET?
-            SF_AUTH_URL = env.SFDX_DEV
+            SF_AUTH_URL = env.SFDX_AUTH_URL
         }
     }
 
