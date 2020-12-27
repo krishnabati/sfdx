@@ -51,8 +51,17 @@ echo "Previous known Successful GIT Commit: ${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT
 
 def salesforceDeploy() {
     authSF()
-    sh "cd /var/lib/jenkins/workspace/multi_master"
+     def JOBURL = ""
+    if("${env.BRANCH_NAME}".contains("/")) {
+        JOBURL = "${env.BRANCH_NAME}".replace("/", "_")
+    }
+    else {
+        JOBURL = "${env.BRANCH_NAME}"
+    }
+    def JOBPATH="/var/lib/jenkins/workspace/multi_${JOBURL}"
+    command "cd ${JOBPATH}"
     sh "export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true"
+    echo JOBPATH
     def varsfdx = tool 'sfdx'
   def targetEnvironment='DevHub'
    // def varsfdx='/usr/local/bin/sfdx'
@@ -130,6 +139,7 @@ def authSF() {
     //         SF_AUTH_URL = env.SFDX_AUTH_URL
     //     }
     // }
+    
     SF_AUTH_URL = env.SFDX_AUTH_URL
     echo SF_AUTH_URL
     writeFile file: 'authjenkinsci.txt', text: SF_AUTH_URL
