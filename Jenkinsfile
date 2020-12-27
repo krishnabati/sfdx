@@ -114,21 +114,21 @@ def authSF() {
     def SF_AUTH_URL
     echo env.BRANCH_NAME
 
-    if ("${currentBuild.buildCauses}".contains("UserIdCause")) {
-        def fields = env.getEnvironment()
-        fields.each {
-            key, value -> if("${key}".contains("${params.target_environment}")) { SF_AUTH_URL = "${value}"; }
-        }
-    }
-    else if("${currentBuild.buildCauses}".contains("BranchEventCause")) {
-        if(env.BRANCH_NAME == 'master' || env.CHANGE_TARGET == 'master') {
-            SF_AUTH_URL = env.SFDX_AUTH_URL
-        }
-        else { // {PR} todo - better determine if its a PR env.CHANGE_TARGET?
-            SF_AUTH_URL = env.SFDX_AUTH_URL
-        }
-    }
-
+    // if ("${currentBuild.buildCauses}".contains("UserIdCause")) {
+    //     def fields = env.getEnvironment()
+    //     fields.each {
+    //         key, value -> if("${key}".contains("${params.target_environment}")) { SF_AUTH_URL = "${value}"; }
+    //     }
+    // }
+    // else if("${currentBuild.buildCauses}".contains("BranchEventCause")) {
+    //     if(env.BRANCH_NAME == 'master' || env.CHANGE_TARGET == 'master') {
+    //         SF_AUTH_URL = env.SFDX_AUTH_URL
+    //     }
+    //     else { // {PR} todo - better determine if its a PR env.CHANGE_TARGET?
+    //         SF_AUTH_URL = env.SFDX_AUTH_URL
+    //     }
+    // }
+    SF_AUTH_URL = env.SFDX_AUTH_URL
     echo SF_AUTH_URL
     writeFile file: 'authjenkinsci.txt', text: SF_AUTH_URL
     sh 'ls -l authjenkinsci.txt'
