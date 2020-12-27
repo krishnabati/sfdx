@@ -46,8 +46,8 @@ echo "########################"
 echo "########################"
 echo "########################"
 sh 'ls github-checkout'
-echo "Current GIT commit":${env.GIT_COMMIT}"
-echo "Previous known Successful GIT Commit": ${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT}"
+echo "Current GIT commit: ${env.GIT_COMMIT}"
+echo "Previous known Successful GIT Commit: ${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT}"
 }
 
 def salesforceDeploy() {
