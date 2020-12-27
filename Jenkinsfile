@@ -10,8 +10,9 @@ stages {
         stage('Initializing') {
             steps {
                 echo "Initializing"
+                
                 // determine if the build was trigger from a git event or manually built with parameters
-               envSetup()
+            //    envSetup()
 
                
             }
