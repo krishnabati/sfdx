@@ -7,7 +7,6 @@ public class myFirstClass{
    // Method definition and body
    // do some calculation
       myValue = myValue+10;
-      string kr="krishna";
       return myValue;
    }
 }
