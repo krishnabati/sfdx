@@ -1,16 +1,16 @@
 pipeline { 
     agent any
 
-    options {
-       timeout(time: 5, unit: 'MINUTES')  // timeout all agents on pipeline if not complete in 5 minutes or less.
+    // options {
+    //    timeout(time: 5, unit: 'MINUTES')  // timeout all agents on pipeline if not complete in 5 minutes or less.
 
-    }
+    // }
 
 stages {
         stage('Initializing') {
             steps {
                 echo "Initializing"
-                
+
                 // determine if the build was trigger from a git event or manually built with parameters
             //    envSetup()
 
