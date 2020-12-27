@@ -51,8 +51,9 @@ echo "Previous known Successful GIT Commit: ${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT
 
 def salesforceDeploy() {
     
-    def varsfdx = tool 'sfdx'
-    rc2 = command "${varsfdx}/sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a targetEnvironment"
+    //def varsfdx = tool 'sfdx'
+    def varsfdx='/usr/local/bin/sfdx'
+    rc2 = command "${varsfdx} force:auth:sfdxurl:store -f authjenkinsci.txt -a targetEnvironment"
     if (rc2 != 0) {
        echo " 'SFDX CLI Authorization to target env has failed.'"
     }
