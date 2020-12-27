@@ -143,4 +143,3 @@ def command(script) {
    }
 }
 
-}
