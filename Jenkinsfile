@@ -32,8 +32,6 @@ stages {
     }
 }
 
-
-
 def githubCheckout(){
  dir('github-checkout'){
 checkout scm
