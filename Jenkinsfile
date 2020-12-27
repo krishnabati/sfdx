@@ -62,6 +62,7 @@ def salesforceDeploy() {
     command "cd ${JOBPATH}"
     sh "export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true"
     echo JOBPATH
+    echo whoami
     def varsfdx = tool 'sfdx'
   def targetEnvironment='DevHub'
    // def varsfdx='/usr/local/bin/sfdx'
