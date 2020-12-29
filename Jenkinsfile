@@ -86,7 +86,7 @@ def salesforceDeploy() {
     def DEPLOYDIR="/var/lib/jenkins/workspace/multi_${deployBranchURL}/force-app/main/default"
     echo DEPLOYDIR
     def SF_INSTANCE_URL = "https://login.salesforce.com"
-sh "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"   
+// sh "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"   
     // dir("${DEPLOYDIR}") {
     //     if ("${currentBuild.buildCauses}".contains("UserIdCause")) {
     //         def deploy_script = "force:source:deploy --wait 10"
@@ -161,6 +161,7 @@ echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
 cd /var/lib/jenkins/workspace/multi_master
  sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a vscodeOrg
  sfdx force:org:list
+ sfdx force:source:deploy --wait 10 --sourcepath /var/lib/jenkins/workspace/multi_master/force-app/main/default --testlevel NoTestRun -u vscodeOrg --json
 echo Shell is: $SHELL
 which secret-tool
 which sfdx'''
