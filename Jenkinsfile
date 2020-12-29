@@ -65,7 +65,7 @@ def salesforceDeploy() {
     command "cd ${JOBPATH}"
     echo JOBPATH
     
-    def varsfdx = tool 'sfdx'
+    //def varsfdx = tool 'sfdx'
   def targetEnvironment='DevHub'
     def varsfdx='/sbin'
     rc2 = command "${varsfdx}/sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a ${targetEnvironment}"
