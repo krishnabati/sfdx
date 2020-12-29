@@ -69,7 +69,12 @@ def salesforceDeploy() {
   def targetEnvironment='vscodeOrg'
 
     def varsfdx='/sbin'
-    command "sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a ${targetEnvironment}"
+    sh "sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a $targetEnvironment"
+             sh '''
+export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
+echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
+'''
+    sh "sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a ${targetEnvironment}"
     
    
 
@@ -102,25 +107,16 @@ def salesforceDeploy() {
             deploy_script += " -u ${targetEnvironment} --json"
 
             echo deploy_script
-            sh '''
-export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
-echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
-'''
+   
             sh "sfdx " + deploy_script
         }
         else if("${currentBuild.buildCauses}".contains("BranchEventCause")) {
             if (env.CHANGE_ID == null && env.VALIDATE_ONLY == false){
-sh '''
-export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
-echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
-'''
+
                 sh "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"         
             }
             else{
-                sh '''
-export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
-echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
-'''
+         
                sh "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"
             }
         }
