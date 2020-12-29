@@ -168,7 +168,7 @@ def command(script) {
    
 
    def  TEST_LEVEL='NoTestRun'
-    def BRANCHNAME=$env.BRANCH_NAME
+    def BRANCHNAME=env.BRANCH_NAME
 sh '''
 export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
 echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
