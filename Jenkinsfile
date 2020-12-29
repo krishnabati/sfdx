@@ -69,11 +69,7 @@ def salesforceDeploy() {
  // def targetEnvironment='vscodeOrg'
 
     def varsfdx='/sbin'
-    
-           
-   
-
-     TEST_LEVEL='NoTestRun'
+    TEST_LEVEL='NoTestRun'
     def VALIDATE_ONLY = false
     def deployBranchURL = ""
     if("${env.BRANCH_NAME}".contains("/")) {
@@ -104,7 +100,7 @@ def authSF() {
     echo 'SF Auth method'
     def SF_AUTH_URL
     echo env.BRANCH_NAME
-
+SF_AUTH_URL="sfdx force:org:display -u sfdxdevelopment2020@gmail.com --verbose"
     // if ("${currentBuild.buildCauses}".contains("UserIdCause")) {
     //     def fields = env.getEnvironment()
     //     fields.each {
@@ -120,7 +116,7 @@ def authSF() {
     //     }
     // }
     
-    SF_AUTH_URL = env.SFDX_AUTH_URL
+   // SF_AUTH_URL = env.SFDX_AUTH_URL
     echo SF_AUTH_URL
     writeFile file: 'authjenkinsci.txt', text: SF_AUTH_URL
     sh 'ls -l authjenkinsci.txt'
