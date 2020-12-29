@@ -66,17 +66,11 @@ def salesforceDeploy() {
     echo JOBPATH
      
     //def varsfdx = tool 'sfdx'
-  def targetEnvironment='vscodeOrg'
+ // def targetEnvironment='vscodeOrg'
 
     def varsfdx='/sbin'
     
-             sh '''
-export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
-echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
-sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a {$targetEnvironment}
-'''
- //   sh "sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a $targetEnvironment"
-    
+           
    
 
      TEST_LEVEL='NoTestRun'
@@ -91,7 +85,18 @@ sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a {$targetEnvironment}
     def DEPLOYDIR="/var/lib/jenkins/workspace/multi_${deployBranchURL}/force-app/main/default"
     echo DEPLOYDIR
     def SF_INSTANCE_URL = "https://login.salesforce.com"
- sh "sfdx force:source:deploy --wait 10 --sourcepath $DEPLOYDIR --testlevel $TEST_LEVEL -u $targetEnvironment --json"   
+
+sh '''
+export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
+echo Above Set Value: {$SFDX_USE_GENERIC_KEYCHAIN}
+cd /var/lib/jenkins/workspace/multi_master
+ sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a {$targetEnvironment}
+ sfdx force:org:list
+ sfdx force:source:deploy --wait 10 --sourcepath {$DEPLOYDIR} --testlevel NoTestRun -u {$targetEnvironment} --json
+echo Shell is: $SHELL
+which secret-tool
+which sfdx'''
+    
    
 }
 
