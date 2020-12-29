@@ -68,7 +68,7 @@ def salesforceDeploy() {
     //def varsfdx = tool 'sfdx'
   def targetEnvironment='vscodeOrg'
     def varsfdx='/sbin'
-    // rc2 = command "sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a ${targetEnvironment}"
+    command "sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a ${targetEnvironment}"
     
     // if (rc2 != 0) {
     //    echo " 'SFDX CLI Authorization to target env has failed.'"
@@ -87,42 +87,42 @@ def salesforceDeploy() {
     echo DEPLOYDIR
     def SF_INSTANCE_URL = "https://login.salesforce.com"
 // sh "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"   
-    // dir("${DEPLOYDIR}") {
-    //     if ("${currentBuild.buildCauses}".contains("UserIdCause")) {
-    //         def deploy_script = "force:source:deploy --wait 10"
-    //         if(params.validate_only_deploy) {
-    //             deploy_script += " -c"
-    //         }
-    //         deploy_script += " --sourcepath ${DEPLOYDIR}"
-    //         if("${params.test_level}".contains("RunSpecifiedTests")) {
-    //             deploy_script += " --testlevel ${params.test_level} -r ${params.specified_tests}"
-    //         }
-    //         else {
-    //             deploy_script += " --testlevel ${params.test_level}"
-    //         }
-    //         deploy_script += " -u ${targetEnvironment} --json"
+    dir("${DEPLOYDIR}") {
+        if ("${currentBuild.buildCauses}".contains("UserIdCause")) {
+            def deploy_script = "force:source:deploy --wait 10"
+            if(params.validate_only_deploy) {
+                deploy_script += " -c"
+            }
+            deploy_script += " --sourcepath ${DEPLOYDIR}"
+            if("${params.test_level}".contains("RunSpecifiedTests")) {
+                deploy_script += " --testlevel ${params.test_level} -r ${params.specified_tests}"
+            }
+            else {
+                deploy_script += " --testlevel ${params.test_level}"
+            }
+            deploy_script += " -u ${targetEnvironment} --json"
 
-    //         echo deploy_script
-    //         rc4 = command "sfdx " + deploy_script
-    //     }
-    //     else if("${currentBuild.buildCauses}".contains("BranchEventCause")) {
-    //         if (env.CHANGE_ID == null && env.VALIDATE_ONLY == false){
+            echo deploy_script
+            command "sfdx " + deploy_script
+        }
+        else if("${currentBuild.buildCauses}".contains("BranchEventCause")) {
+            if (env.CHANGE_ID == null && env.VALIDATE_ONLY == false){
 
-    //             rc4 = command "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"         
-    //         }
-    //         else{
-    //             rc4 = command "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"
-    //         }
-    //     }
- 
-    //     if ("$rc4".contains("0")) {
-    //         echo "successful sfdx source deploy from X to X"
-    //     } 
-    //     else {
-    //        currentBuild.result = 'FAILURE'
-    //        echo "$rc4"
-    //     }
-    // }
+                command "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"         
+            }
+            else{
+               command "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"
+            }
+        }
+ echo "successful sfdx source deploy from X to X"
+        // if ("$rc4".contains("0")) {
+        //     echo "successful sfdx source deploy from X to X"
+        // } 
+        // else {
+        //    currentBuild.result = 'FAILURE'
+        //    echo "$rc4"
+        // }
+    }
 }
 
 def authSF() {
@@ -151,21 +151,38 @@ def authSF() {
     sh 'ls -l authjenkinsci.txt'
     sh 'cat authjenkinsci.txt'
     echo 'end sf auth method'
+//      if (isUnix()) {
+
+// sh '''
+// export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
+// echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
+// cd /var/lib/jenkins/workspace/multi_master
+//  sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a targetEnvironment
+//  sfdx force:org:list
+//  sfdx force:source:deploy --wait 10 --sourcepath /var/lib/jenkins/workspace/multi_master/force-app/main/default --testlevel NoTestRun -u targetEnvironment --json
+// echo Shell is: $SHELL
+// which secret-tool
+// which sfdx'''
+//      }
+   
 }
 
 def command(script) {
-   if (isUnix()) {
-
-sh '''
+   if (isUnix()) { 
+       sh '''
 export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
-echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
-cd /var/lib/jenkins/workspace/multi_master
- sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a targetEnvironment
- sfdx force:org:list
- sfdx force:source:deploy --wait 10 --sourcepath /var/lib/jenkins/workspace/multi_master/force-app/main/default --testlevel NoTestRun -u targetEnvironment --json
-echo Shell is: $SHELL
-which secret-tool
-which sfdx'''
+echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN'''
+
+// sh '''
+// export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
+// echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
+// cd /var/lib/jenkins/workspace/multi_master
+//  sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a targetEnvironment
+//  sfdx force:org:list
+//  sfdx force:source:deploy --wait 10 --sourcepath /var/lib/jenkins/workspace/multi_master/force-app/main/default --testlevel NoTestRun -u targetEnvironment --json
+// echo Shell is: $SHELL
+// which secret-tool
+// which sfdx'''
 
        return sh(returnStatus: true, script: script);
    } else {
