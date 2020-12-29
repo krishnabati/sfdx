@@ -86,7 +86,7 @@ def salesforceDeploy() {
     def DEPLOYDIR="/var/lib/jenkins/workspace/multi_${deployBranchURL}/force-app/main/default"
     echo DEPLOYDIR
     def SF_INSTANCE_URL = "https://login.salesforce.com"
-sh 'sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json'   
+sh "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"   
     // dir("${DEPLOYDIR}") {
     //     if ("${currentBuild.buildCauses}".contains("UserIdCause")) {
     //         def deploy_script = "force:source:deploy --wait 10"
