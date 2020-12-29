@@ -74,17 +74,17 @@ def salesforceDeploy() {
     //    echo " 'SFDX CLI Authorization to target env has failed.'"
     // }
 
-     TEST_LEVEL='NoTestRun'
-    def VALIDATE_ONLY = false
-     deployBranchURL = ""
-    if("${env.BRANCH_NAME}".contains("/")) {
-        deployBranchURL = "${env.BRANCH_NAME}".replace("/", "_")
-    }
-    else {
-        deployBranchURL = "${env.BRANCH_NAME}"
-    }
-     DEPLOYDIR="/var/lib/jenkins/workspace/multi_${deployBranchURL}/force-app/main/default"
-    echo DEPLOYDIR
+    //  TEST_LEVEL='NoTestRun'
+    // def VALIDATE_ONLY = false
+    //  deployBranchURL = ""
+    // if("${env.BRANCH_NAME}".contains("/")) {
+    //     deployBranchURL = "${env.BRANCH_NAME}".replace("/", "_")
+    // }
+    // else {
+    //     deployBranchURL = "${env.BRANCH_NAME}"
+    // }
+    //  DEPLOYDIR="/var/lib/jenkins/workspace/multi_${deployBranchURL}/force-app/main/default"
+    // echo DEPLOYDIR
     def SF_INSTANCE_URL = "https://login.salesforce.com"
 // sh "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"   
     // dir("${DEPLOYDIR}") {
@@ -155,7 +155,14 @@ def authSF() {
 
 def command(script) {
    if (isUnix()) {
-
+ def deployBranchURL = ""
+    if("${env.BRANCH_NAME}".contains("/")) {
+        deployBranchURL = "${env.BRANCH_NAME}".replace("/", "_")
+    }
+    else {
+        deployBranchURL = "${env.BRANCH_NAME}"
+    }
+  DEPLOYDIR="/var/lib/jenkins/workspace/multi_${deployBranchURL}/force-app/main/default"
 sh '''
 export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
 echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
