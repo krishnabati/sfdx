@@ -73,7 +73,7 @@ def salesforceDeploy() {
              sh '''
 export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
 echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
-sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a $targetEnvironment
+sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a {$targetEnvironment}
 '''
  //   sh "sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a $targetEnvironment"
     
