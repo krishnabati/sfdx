@@ -86,42 +86,44 @@ def salesforceDeploy() {
     def DEPLOYDIR="/var/lib/jenkins/workspace/multi_${deployBranchURL}/force-app/main/default"
     echo DEPLOYDIR
     def SF_INSTANCE_URL = "https://login.salesforce.com"
-
+    sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"         
+            
     dir("${DEPLOYDIR}") {
-        if ("${currentBuild.buildCauses}".contains("UserIdCause")) {
-            def deploy_script = "force:source:deploy --wait 10"
-            if(params.validate_only_deploy) {
-                deploy_script += " -c"
-            }
-            deploy_script += " --sourcepath ${DEPLOYDIR}"
-            if("${params.test_level}".contains("RunSpecifiedTests")) {
-                deploy_script += " --testlevel ${params.test_level} -r ${params.specified_tests}"
-            }
-            else {
-                deploy_script += " --testlevel ${params.test_level}"
-            }
-            deploy_script += " -u ${targetEnvironment} --json"
 
-            echo deploy_script
-            rc4 = command "sfdx " + deploy_script
-        }
-        else if("${currentBuild.buildCauses}".contains("BranchEventCause")) {
-            if (env.CHANGE_ID == null && env.VALIDATE_ONLY == false){
+        // if ("${currentBuild.buildCauses}".contains("UserIdCause")) {
+        //     def deploy_script = "force:source:deploy --wait 10"
+        //     if(params.validate_only_deploy) {
+        //         deploy_script += " -c"
+        //     }
+        //     deploy_script += " --sourcepath ${DEPLOYDIR}"
+        //     if("${params.test_level}".contains("RunSpecifiedTests")) {
+        //         deploy_script += " --testlevel ${params.test_level} -r ${params.specified_tests}"
+        //     }
+        //     else {
+        //         deploy_script += " --testlevel ${params.test_level}"
+        //     }
+        //     deploy_script += " -u ${targetEnvironment} --json"
 
-                rc4 = command "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"         
-            }
-            else{
-                rc4 = command "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"
-            }
-        }
+        //     echo deploy_script
+        //     rc4 = command "sfdx " + deploy_script
+        // }
+        // else if("${currentBuild.buildCauses}".contains("BranchEventCause")) {
+        //     if (env.CHANGE_ID == null && env.VALIDATE_ONLY == false){
+
+        //         rc4 = command "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"         
+        //     }
+        //     else{
+        //         rc4 = command "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"
+        //     }
+        // }
  
-        if ("$rc4".contains("0")) {
-            echo "successful sfdx source deploy from X to X"
-        } 
-        else {
-           currentBuild.result = 'FAILURE'
-           echo "$rc4"
-        }
+        // if ("$rc4".contains("0")) {
+        //     echo "successful sfdx source deploy from X to X"
+        // } 
+        // else {
+        //    currentBuild.result = 'FAILURE'
+        //    echo "$rc4"
+        // }
     }
 }
 
