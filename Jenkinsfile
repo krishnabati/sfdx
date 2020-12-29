@@ -66,7 +66,7 @@ def salesforceDeploy() {
     echo JOBPATH
      
     //def varsfdx = tool 'sfdx'
-   targetEnvironment='vscodeOrg'
+  def targetEnvironment='vscodeOrg'
     def varsfdx='/sbin'
     // rc2 = command "sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a ${targetEnvironment}"
     
@@ -74,17 +74,17 @@ def salesforceDeploy() {
     //    echo " 'SFDX CLI Authorization to target env has failed.'"
     // }
 
-    //  TEST_LEVEL='NoTestRun'
-    // def VALIDATE_ONLY = false
-    //  deployBranchURL = ""
-    // if("${env.BRANCH_NAME}".contains("/")) {
-    //     deployBranchURL = "${env.BRANCH_NAME}".replace("/", "_")
-    // }
-    // else {
-    //     deployBranchURL = "${env.BRANCH_NAME}"
-    // }
-    //  DEPLOYDIR="/var/lib/jenkins/workspace/multi_${deployBranchURL}/force-app/main/default"
-    // echo DEPLOYDIR
+     TEST_LEVEL='NoTestRun'
+    def VALIDATE_ONLY = false
+    def deployBranchURL = ""
+    if("${env.BRANCH_NAME}".contains("/")) {
+        deployBranchURL = "${env.BRANCH_NAME}".replace("/", "_")
+    }
+    else {
+        deployBranchURL = "${env.BRANCH_NAME}"
+    }
+    def DEPLOYDIR="/var/lib/jenkins/workspace/multi_${deployBranchURL}/force-app/main/default"
+    echo DEPLOYDIR
     def SF_INSTANCE_URL = "https://login.salesforce.com"
 // sh "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"   
     // dir("${DEPLOYDIR}") {
@@ -155,30 +155,17 @@ def authSF() {
 
 def command(script) {
    if (isUnix()) {
-//  def deployBranchURL = ""
-//     if("${env.BRANCH_NAME}".contains("/")) {
-//         deployBranchURL = "${env.BRANCH_NAME}".replace("/", "_")
-//     }
-//     else {
-//         deployBranchURL = "${env.BRANCH_NAME}"
-//     }
-  DEPLOYDIR="/var/lib/jenkins/workspace/multi_${env.BRANCH_NAME}/force-app/main/default"
-  echo DEPLOYDIR
-  def  targetEnvironment='vscodeOrg'
-   
 
-   def  TEST_LEVEL='NoTestRun'
-    def BRANCHNAME=env.BRANCH_NAME
-sh """
+sh '''
 export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
 echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
-cd /var/lib/jenkins/workspace/multi_$BRANCHNAME
- sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a $targetEnvironment
+cd /var/lib/jenkins/workspace/multi_master
+ sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a targetEnvironment
  sfdx force:org:list
- sfdx force:source:deploy --wait 10 --sourcepath $DEPLOYDIR --testlevel $TEST_LEVEL -u $BRANCHNAME --json
+ sfdx force:source:deploy --wait 10 --sourcepath /var/lib/jenkins/workspace/multi_master/force-app/main/default --testlevel NoTestRun -u targetEnvironment --json
 echo Shell is: $SHELL
 which secret-tool
-which sfdx"""
+which sfdx'''
 
        return sh(returnStatus: true, script: script);
    } else {
