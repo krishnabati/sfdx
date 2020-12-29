@@ -155,18 +155,19 @@ def authSF() {
 
 def command(script) {
    if (isUnix()) {
- def deployBranchURL = ""
-    if("${env.BRANCH_NAME}".contains("/")) {
-        deployBranchURL = "${env.BRANCH_NAME}".replace("/", "_")
-    }
-    else {
-        deployBranchURL = "${env.BRANCH_NAME}"
-    }
-  DEPLOYDIR="/var/lib/jenkins/workspace/multi_${deployBranchURL}/force-app/main/default"
+//  def deployBranchURL = ""
+//     if("${env.BRANCH_NAME}".contains("/")) {
+//         deployBranchURL = "${env.BRANCH_NAME}".replace("/", "_")
+//     }
+//     else {
+//         deployBranchURL = "${env.BRANCH_NAME}"
+//     }
+  DEPLOYDIR="/var/lib/jenkins/workspace/multi_${env.BRANCH_NAME}/force-app/main/default"
+  echo DEPLOYDIR
 sh '''
 export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
 echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
-cd /var/lib/jenkins/workspace/multi_${deployBranchURL}
+cd /var/lib/jenkins/workspace/multi_${env.BRANCH_NAME}
  sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a ${targetEnvironment}
  sfdx force:org:list
  sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json
