@@ -51,7 +51,7 @@ echo "Previous known Successful GIT Commit: ${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT
 
 def salesforceDeploy() {
     authSF()
-     def JOBURL = ""
+      JOBURL = ""
     if("${env.BRANCH_NAME}".contains("/")) {
         JOBURL = "${env.BRANCH_NAME}".replace("/", "_")
     }
@@ -157,6 +157,7 @@ def command(script) {
        sh '''
 export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
 echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
+cd /var/lib/jenkins/workspace/multi_${JOBURL}/github-checkout
  sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a vscodeOrg
  sfdx force:org:list
 echo Shell is: $SHELL
