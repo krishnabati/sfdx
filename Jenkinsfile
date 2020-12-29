@@ -102,14 +102,25 @@ def salesforceDeploy() {
             deploy_script += " -u ${targetEnvironment} --json"
 
             echo deploy_script
+            sh '''
+export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
+echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
+'''
             command "sfdx " + deploy_script
         }
         else if("${currentBuild.buildCauses}".contains("BranchEventCause")) {
             if (env.CHANGE_ID == null && env.VALIDATE_ONLY == false){
-
+sh '''
+export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
+echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
+'''
                 command "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"         
             }
             else{
+                sh '''
+export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
+echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
+'''
                command "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"
             }
         }
@@ -168,9 +179,10 @@ def authSF() {
 
 def command(script) {
    if (isUnix()) { 
-       sh '''
-export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
-echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN'''
+//        sh '''
+// export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
+// echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
+// '''
 
 // sh '''
 // export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
@@ -183,7 +195,7 @@ echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN'''
 // which secret-tool
 // which sfdx'''
 
-        sh(returnStdout: true, script: script);
+       return sh(returnStatus: true, script: script);
    } else {
        return bat(returnStatus: true, script: script);
    }
