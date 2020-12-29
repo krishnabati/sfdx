@@ -160,9 +160,9 @@ def command(script) {
 export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
 echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
 cd /var/lib/jenkins/workspace/multi_master
- sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a vscodeOrg
+ sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a targetEnvironment
  sfdx force:org:list
- sfdx force:source:deploy --wait 10 --sourcepath /var/lib/jenkins/workspace/multi_master/force-app/main/default --testlevel NoTestRun -u vscodeOrg --json
+ sfdx force:source:deploy --wait 10 --sourcepath /var/lib/jenkins/workspace/multi_master/force-app/main/default --testlevel NoTestRun -u targetEnvironment --json
 echo Shell is: $SHELL
 which secret-tool
 which sfdx'''
