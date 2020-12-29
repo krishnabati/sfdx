@@ -61,7 +61,7 @@ def salesforceDeploy() {
     // sh "sudo su -s /bin/bash jenkins"
     // sh "export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true"
    
-    def JOBPATH="/var/lib/jenkins/workspace/multi_${JOBURL}/github-checkout"
+    def JOBPATH="/var/lib/jenkins/workspace/multi_${JOBURL}"
     command "cd ${JOBPATH}"
     echo JOBPATH
      
@@ -83,7 +83,7 @@ def salesforceDeploy() {
     else {
         deployBranchURL = "${env.BRANCH_NAME}"
     }
-    def DEPLOYDIR="/var/lib/jenkins/workspace/multi_${deployBranchURL}/github-checkout/force-app/main/default"
+    def DEPLOYDIR="/var/lib/jenkins/workspace/multi_${deployBranchURL}/force-app/main/default"
     echo DEPLOYDIR
     def SF_INSTANCE_URL = "https://login.salesforce.com"
 
@@ -157,7 +157,7 @@ def command(script) {
        sh '''
 export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
 echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
-cd /var/lib/jenkins/workspace/multi_master/github-checkout
+cd /var/lib/jenkins/workspace/multi_master
  sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a vscodeOrg
  sfdx force:org:list
 echo Shell is: $SHELL
