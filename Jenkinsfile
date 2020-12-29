@@ -64,19 +64,15 @@ def salesforceDeploy() {
     def JOBPATH="/var/lib/jenkins/workspace/multi_${JOBURL}/github-checkout"
     command "cd ${JOBPATH}"
     echo JOBPATH
-      sh '''
-export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
-echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
-echo Shell is: $SHELL
-which secret-tool
-which sfdx'''
+     
     //def varsfdx = tool 'sfdx'
   def targetEnvironment='DevHub'
     def varsfdx='/sbin'
-    rc2 = command "sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a ${targetEnvironment}"
-    if (rc2 != 0) {
-       echo " 'SFDX CLI Authorization to target env has failed.'"
-    }
+    // rc2 = command "sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a ${targetEnvironment}"
+    
+    // if (rc2 != 0) {
+    //    echo " 'SFDX CLI Authorization to target env has failed.'"
+    // }
 
     def TEST_LEVEL='NoTestRun'
     def VALIDATE_ONLY = false
@@ -161,7 +157,8 @@ def command(script) {
        sh '''
 export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
 echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
-sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a DevHub
+ rc2 = command "sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a ${targetEnvironment}
+ echo rc2
 sfdx force:org:list
 echo Shell is: $SHELL
 which secret-tool
