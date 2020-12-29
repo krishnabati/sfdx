@@ -183,7 +183,7 @@ echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN'''
 // which secret-tool
 // which sfdx'''
 
-        sh(returnStatus: true, script: script);
+        sh(returnStdout: true, script: script);
    } else {
        return bat(returnStatus: true, script: script);
    }
