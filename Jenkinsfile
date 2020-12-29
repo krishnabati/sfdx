@@ -68,13 +68,11 @@ def salesforceDeploy() {
     //def varsfdx = tool 'sfdx'
   def targetEnvironment='vscodeOrg'
     def varsfdx='/sbin'
-   sh ''' export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
-echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN'''
-    rc2 = command "sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a ${targetEnvironment}"
+    // rc2 = command "sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a ${targetEnvironment}"
     
-    if (rc2 != 0) {
-       echo " 'SFDX CLI Authorization to target env has failed.'"
-    }
+    // if (rc2 != 0) {
+    //    echo " 'SFDX CLI Authorization to target env has failed.'"
+    // }
 
      TEST_LEVEL='NoTestRun'
     def VALIDATE_ONLY = false
@@ -158,16 +156,16 @@ def authSF() {
 def command(script) {
    if (isUnix()) {
 
-// sh '''
-// export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
-// echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
-// cd /var/lib/jenkins/workspace/multi_master
-//  sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a targetEnvironment
-//  sfdx force:org:list
-//  sfdx force:source:deploy --wait 10 --sourcepath /var/lib/jenkins/workspace/multi_master/force-app/main/default --testlevel NoTestRun -u targetEnvironment --json
-// echo Shell is: $SHELL
-// which secret-tool
-// which sfdx'''
+sh '''
+export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
+echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
+cd /var/lib/jenkins/workspace/multi_master
+ sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a targetEnvironment
+ sfdx force:org:list
+ sfdx force:source:deploy --wait 10 --sourcepath /var/lib/jenkins/workspace/multi_master/force-app/main/default --testlevel NoTestRun -u targetEnvironment --json
+echo Shell is: $SHELL
+which secret-tool
+which sfdx'''
 
        return sh(returnStatus: true, script: script);
    } else {
