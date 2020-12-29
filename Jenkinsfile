@@ -169,7 +169,7 @@ def command(script) {
 
    def  TEST_LEVEL='NoTestRun'
     def BRANCHNAME=env.BRANCH_NAME
-sh '''
+sh """
 export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
 echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
 cd /var/lib/jenkins/workspace/multi_$BRANCHNAME
@@ -178,7 +178,7 @@ cd /var/lib/jenkins/workspace/multi_$BRANCHNAME
  sfdx force:source:deploy --wait 10 --sourcepath $DEPLOYDIR --testlevel $TEST_LEVEL -u $BRANCHNAME --json
 echo Shell is: $SHELL
 which secret-tool
-which sfdx'''
+which sfdx"""
 
        return sh(returnStatus: true, script: script);
    } else {
