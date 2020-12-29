@@ -157,7 +157,7 @@ def command(script) {
        sh '''
 export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
 echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
- rc2 = command "sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a ${targetEnvironment}"
+ rc2 =  sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a ${targetEnvironment}
  echo rc2
 sfdx force:org:list
 echo Shell is: $SHELL
