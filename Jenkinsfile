@@ -74,7 +74,7 @@ def salesforceDeploy() {
     //    echo " 'SFDX CLI Authorization to target env has failed.'"
     // }
 
-    def TEST_LEVEL='NoTestRun'
+     TEST_LEVEL='NoTestRun'
     def VALIDATE_ONLY = false
     def deployBranchURL = ""
     if("${env.BRANCH_NAME}".contains("/")) {
@@ -107,6 +107,7 @@ def salesforceDeploy() {
         }
         else if("${currentBuild.buildCauses}".contains("BranchEventCause")) {
             if (env.CHANGE_ID == null && env.VALIDATE_ONLY == false){
+
                 rc4 = command "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"         
             }
             else{
