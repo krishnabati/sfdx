@@ -73,7 +73,7 @@ which sfdx'''
     //def varsfdx = tool 'sfdx'
   def targetEnvironment='DevHub'
     def varsfdx='/sbin'
-    rc2 = command "${varsfdx}/sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a ${targetEnvironment}"
+    rc2 = command "sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a ${targetEnvironment}"
     if (rc2 != 0) {
        echo " 'SFDX CLI Authorization to target env has failed.'"
     }
@@ -107,14 +107,14 @@ which sfdx'''
             deploy_script += " -u ${targetEnvironment} --json"
 
             echo deploy_script
-            rc4 = command "${varsfdx}/sfdx " + deploy_script
+            rc4 = command "sfdx " + deploy_script
         }
         else if("${currentBuild.buildCauses}".contains("BranchEventCause")) {
             if (env.CHANGE_ID == null && env.VALIDATE_ONLY == false){
-                rc4 = command "${varsfdx}/sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"         
+                rc4 = command "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"         
             }
             else{
-                rc4 = command "${varsfdx}/sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"
+                rc4 = command "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"
             }
         }
  
