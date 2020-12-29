@@ -157,7 +157,7 @@ def command(script) {
        sh '''
 export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
 echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
- sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a ${targetEnvironment}
+ sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a vscodeOrg
  
 sfdx force:org:list
 echo Shell is: $SHELL
