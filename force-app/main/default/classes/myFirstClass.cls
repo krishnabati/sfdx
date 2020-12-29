@@ -10,7 +10,7 @@ public class myFirstClass{
       myValue = myValue+10;
       return myValue;
    }'
-  public krishnaMethod(){
+   krishnaMethod(){
 public String newstr='';
 newstr='krishna';
 System.debug(newstr);
