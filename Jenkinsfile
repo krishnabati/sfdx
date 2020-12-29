@@ -156,7 +156,7 @@ def authSF() {
 def command(script) {
    if (isUnix()) {
 
-       sh '''
+sh '''
 export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
 echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
 cd /var/lib/jenkins/workspace/multi_master
