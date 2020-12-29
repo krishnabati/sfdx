@@ -106,7 +106,7 @@ def salesforceDeploy() {
 export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
 echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
 '''
-            command "sfdx " + deploy_script
+            sh "sfdx " + deploy_script
         }
         else if("${currentBuild.buildCauses}".contains("BranchEventCause")) {
             if (env.CHANGE_ID == null && env.VALIDATE_ONLY == false){
@@ -114,14 +114,14 @@ sh '''
 export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
 echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
 '''
-                command "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"         
+                sh "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"         
             }
             else{
                 sh '''
 export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
 echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
 '''
-               command "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"
+               sh "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"
             }
         }
  echo "successful sfdx source deploy from X to X"
