@@ -67,6 +67,7 @@ def salesforceDeploy() {
      
     //def varsfdx = tool 'sfdx'
   def targetEnvironment='vscodeOrg'
+
     def varsfdx='/sbin'
     command "sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a ${targetEnvironment}"
     
