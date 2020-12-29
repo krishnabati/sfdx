@@ -6,6 +6,7 @@ public class myFirstClass{
    public static Integer getCalculatedValue () {
    // Method definition and body
    // do some calculation
+   myString="krishna";
       myValue = myValue+10;
       return myValue;
    }
