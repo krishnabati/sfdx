@@ -66,7 +66,7 @@ def salesforceDeploy() {
     echo JOBPATH
      
     //def varsfdx = tool 'sfdx'
-  def targetEnvironment='DevHub'
+  def targetEnvironment='vscodeOrg'
     def varsfdx='/sbin'
     // rc2 = command "sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a ${targetEnvironment}"
     
@@ -158,8 +158,7 @@ def command(script) {
 export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
 echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
  sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a vscodeOrg
- 
-sfdx force:org:list
+ sfdx force:org:list
 echo Shell is: $SHELL
 which secret-tool
 which sfdx'''
