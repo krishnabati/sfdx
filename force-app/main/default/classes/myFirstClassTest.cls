@@ -1,7 +1,7 @@
 @isTest
-public class MyFirstClassTest {
+public class myFirstClassTest {
 static testMethod void testInsertAccount() {
-    MyFirstClass ca = new MyFirstClass();
-ca.MyFirstClass('TestclassAcc1');
+    myFirstClass ca = new myFirstClass();
+ca.myFirstClass('TestclassAcc1');
 }
 }
