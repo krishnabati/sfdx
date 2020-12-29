@@ -164,17 +164,18 @@ def command(script) {
 //     }
   DEPLOYDIR="/var/lib/jenkins/workspace/multi_${env.BRANCH_NAME}/force-app/main/default"
   echo DEPLOYDIR
-    targetEnvironment='vscodeOrg'
+  def  targetEnvironment='vscodeOrg'
    
 
-     TEST_LEVEL='NoTestRun'
+   def  TEST_LEVEL='NoTestRun'
+    def BRANCHNAME=$env.BRANCH_NAME
 sh '''
 export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
 echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
-cd /var/lib/jenkins/workspace/multi_$env.BRANCH_NAME
+cd /var/lib/jenkins/workspace/multi_$BRANCHNAME
  sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a $targetEnvironment
  sfdx force:org:list
- sfdx force:source:deploy --wait 10 --sourcepath $DEPLOYDIR --testlevel $TEST_LEVEL -u $targetEnvironment --json
+ sfdx force:source:deploy --wait 10 --sourcepath $DEPLOYDIR --testlevel $TEST_LEVEL -u $BRANCHNAME --json
 echo Shell is: $SHELL
 which secret-tool
 which sfdx'''
