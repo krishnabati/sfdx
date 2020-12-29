@@ -71,9 +71,7 @@ def salesforceDeploy() {
     def varsfdx='/sbin'
     command "sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a ${targetEnvironment}"
     
-    // if (rc2 != 0) {
-    //    echo " 'SFDX CLI Authorization to target env has failed.'"
-    // }
+   
 
      TEST_LEVEL='NoTestRun'
     def VALIDATE_ONLY = false
