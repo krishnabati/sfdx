@@ -91,45 +91,8 @@ echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
     echo DEPLOYDIR
     def SF_INSTANCE_URL = "https://login.salesforce.com"
  sh "sfdx force:source:deploy --wait 10 --sourcepath $DEPLOYDIR --testlevel $TEST_LEVEL -u $targetEnvironment --json"   
-//     dir("${DEPLOYDIR}") {
-//         if ("${currentBuild.buildCauses}".contains("UserIdCause")) {
-//             def deploy_script = "force:source:deploy --wait 10"
-//             if(params.validate_only_deploy) {
-//                 deploy_script += " -c"
-//             }
-//             deploy_script += " --sourcepath ${DEPLOYDIR}"
-//             if("${params.test_level}".contains("RunSpecifiedTests")) {
-//                 deploy_script += " --testlevel ${params.test_level} -r ${params.specified_tests}"
-//             }
-//             else {
-//                 deploy_script += " --testlevel ${params.test_level}"
-//             }
-//             deploy_script += " -u ${targetEnvironment} --json"
-
-//             echo deploy_script
    
-//             sh "sfdx " + deploy_script
-//         }
-//         else if("${currentBuild.buildCauses}".contains("BranchEventCause")) {
-//             if (env.CHANGE_ID == null && env.VALIDATE_ONLY == false){
-
-//                 sh "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"         
-//             }
-//             else{
-         
-//                sh "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel ${TEST_LEVEL} -u ${targetEnvironment} --json"
-//             }
-//         }
-//  echo "successful sfdx source deploy from X to X"
-//         // if ("$rc4".contains("0")) {
-//         //     echo "successful sfdx source deploy from X to X"
-//         // } 
-//         // else {
-//         //    currentBuild.result = 'FAILURE'
-//         //    echo "$rc4"
-//         // }
-//     }
-// }
+}
 
 def authSF() {
     echo 'SF Auth method'
