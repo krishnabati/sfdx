@@ -62,7 +62,7 @@ def salesforceDeploy() {
     // sh "export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true"
    
     def JOBPATH="/var/lib/jenkins/workspace/multi_${JOBURL}"
-    command "cd ${JOBPATH}"
+    sh "cd ${JOBPATH}"
     echo JOBPATH
      
     //def varsfdx = tool 'sfdx'
