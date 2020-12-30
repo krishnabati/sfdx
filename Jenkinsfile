@@ -103,6 +103,14 @@ def authSF() {
     echo 'SF Auth method'
     def SF_AUTH_URL
     echo env.BRANCH_NAME
+    sh '''
+export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
+echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
+echo Shell is: $SHELL
+which secret-tool
+which sfdx
+'''
+
 SF_AUTH_URL=sh "sfdx force:org:display -u sfdxdevelopment2020@gmail.com --verbose"
     // if ("${currentBuild.buildCauses}".contains("UserIdCause")) {
     //     def fields = env.getEnvironment()
