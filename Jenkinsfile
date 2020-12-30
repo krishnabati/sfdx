@@ -92,7 +92,7 @@ which sfdx
 echo "cd /var/lib/jenkins/workspace/multi_${deployBranchURL}"
  echo "sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a ${targetEnvironment}"
  echo "sfdx force:org:list"
- echo "sfdx force:source:deploy --wait 10 --sourcepath {$DEPLOYDIR} --testlevel NoTestRun -u {$targetEnvironment}--json"
+ echo "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel NoTestRun -u ${targetEnvironment}--json"
 
     
    
