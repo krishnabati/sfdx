@@ -89,6 +89,7 @@ echo Shell is: $SHELL
 which secret-tool
 which sfdx
 '''
+targetEnvironment="vscodeOrg"
 sh "cd /var/lib/jenkins/workspace/multi_${deployBranchURL}"
  sh "sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a ${targetEnvironment}"
  sh "sfdx force:org:list"
