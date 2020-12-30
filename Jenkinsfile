@@ -89,10 +89,10 @@ echo Shell is: $SHELL
 which secret-tool
 which sfdx
 '''
-echo "cd /var/lib/jenkins/workspace/multi_${deployBranchURL}"
- echo "sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a ${targetEnvironment}"
- echo "sfdx force:org:list"
- echo "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel NoTestRun -u ${targetEnvironment}--json"
+command "cd /var/lib/jenkins/workspace/multi_${deployBranchURL}"
+ command "sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a ${targetEnvironment}"
+ command "sfdx force:org:list"
+ command "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel NoTestRun -u ${targetEnvironment}--json"
 
     
    
