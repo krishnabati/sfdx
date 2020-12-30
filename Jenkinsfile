@@ -82,8 +82,8 @@ def salesforceDeploy() {
     echo DEPLOYDIR
     def SF_INSTANCE_URL = "https://login.salesforce.com"
 targetEnvironment="vscodeOrg"
-sh '''
-#!/bin/bash
+sh '''#!/bin/bash
+
 export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
 echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
 echo Shell is: $SHELL
