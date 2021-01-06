@@ -78,25 +78,11 @@ def salesforceDeploy() {
     def SF_INSTANCE_URL = "https://login.salesforce.com"
 targetEnvironment="vscodeaws"
 sh '''
-#!/bin/bash
-export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
-echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
-echo Shell is: $SHELL
-which secret-tool
-which sfdx
 cd /var/lib/jenkins/workspace/multi_master
 sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a vscodeaws
 sfdx force:org:list
 sfdx force:source:deploy --wait 10 --sourcepath /var/lib/jenkins/workspace/multi_master/force-app/main/default --testlevel NoTestRun -u vscodeaws --json
  '''
- // /var/lib/jenkins/workspace/multi_master/force-app/main/default
-// targetEnvironment="vscodeOrg"
-// sh "cd /var/lib/jenkins/workspace/multi_${deployBranchURL}"
-//  sh "sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a ${targetEnvironment}"
-//  sh "sfdx force:org:list"
-//  sh "sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel NoTestRun -u ${targetEnvironment}--json"
-
-    
    
 }
 
@@ -104,31 +90,12 @@ def authSF() {
     echo 'SF Auth method'
     def SF_AUTH_URL
     echo env.BRANCH_NAME
-
-// SF_AUTH_URL=sh "sfdx force:org:display -u sfdxdevelopment2020@gmail.com --verbose"
-    // if ("${currentBuild.buildCauses}".contains("UserIdCause")) {
-    //     def fields = env.getEnvironment()
-    //     fields.each {
-    //         key, value -> if("${key}".contains("${params.target_environment}")) { SF_AUTH_URL = "${value}"; }
-    //     }
-    // }
-    // else if("${currentBuild.buildCauses}".contains("BranchEventCause")) {
-    //     if(env.BRANCH_NAME == 'master' || env.CHANGE_TARGET == 'master') {
-    //         SF_AUTH_URL = env.SFDX_AUTH_URL
-    //     }
-    //     else { // {PR} todo - better determine if its a PR env.CHANGE_TARGET?
-    //         SF_AUTH_URL = env.SFDX_AUTH_URL
-    //     }
-    // }
-    
     SF_AUTH_URL = env.SFDX_AUTH_URL
     echo SF_AUTH_URL
     writeFile file: 'authjenkinsci.txt', text: SF_AUTH_URL
     sh 'ls -l authjenkinsci.txt'
     sh 'cat authjenkinsci.txt'
     echo 'end sf auth method'
-
-   
 }
 
 def command(script) {
