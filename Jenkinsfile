@@ -84,10 +84,10 @@ echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
 echo Shell is: $SHELL
 which secret-tool
 which sfdx
-cd /var/lib/jenkins/workspace/multi_$deployBranchURL
-sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a "$targetEnvironment"
+cd /var/lib/jenkins/workspace/multi_master
+sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a vscodeaws
 sfdx force:org:list
-sfdx force:source:deploy --wait 10 --sourcepath "${DEPLOYDIR}" --testlevel NoTestRun -u "$targetEnvironment" --json
+sfdx force:source:deploy --wait 10 --sourcepath /var/lib/jenkins/workspace/multi_master/force-app/main/default --testlevel NoTestRun -u vscodeaws --json
  '''
  // /var/lib/jenkins/workspace/multi_master/force-app/main/default
 // targetEnvironment="vscodeOrg"
