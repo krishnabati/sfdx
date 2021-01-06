@@ -89,7 +89,7 @@ echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
 echo Shell is: $SHELL
 which secret-tool
 which sfdx
-cd /var/lib/jenkins/workspace/multi_${deployBranchURL}
+cd /var/lib/jenkins/workspace/multi_master
 sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a ${targetEnvironment}
 sfdx force:org:list
 sfdx force:source:deploy --wait 10 --sourcepath ${DEPLOYDIR} --testlevel NoTestRun -u ${targetEnvironment}--json
