@@ -87,6 +87,7 @@ targetEnvironment="vscodeaws"
 // echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
 
 sh """
+#!/bin/bash
 echo $targetEnvironment
 echo $DEPLOYDIR
 echo $deployBranchURL
