@@ -10,11 +10,7 @@ stages {
         stage('Initializing') {
             steps {
                 echo "Initializing"
-
-                // determine if the build was trigger from a git event or manually built with parameters
-            //    envSetup()
-
-               
+                  
             }
         }
         stage('github pipeline') {
@@ -59,8 +55,7 @@ def salesforceDeploy() {
         JOBURL = "${env.BRANCH_NAME}"
     }
     // sh "sudo su -s /bin/bash jenkins"
-    // sh "export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true"
-   
+    
     def JOBPATH="/var/lib/jenkins/workspace/multi_${JOBURL}"
     sh "cd ${JOBPATH}"
     echo JOBPATH
@@ -84,7 +79,7 @@ def salesforceDeploy() {
 targetEnvironment="vscodeaws"
 sh """
 #!/bin/bash
-export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
+'export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true'
 echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
 echo Shell is: $SHELL
 which secret-tool
@@ -109,13 +104,6 @@ def authSF() {
     echo 'SF Auth method'
     def SF_AUTH_URL
     echo env.BRANCH_NAME
-//     sh '''
-// export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
-// echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
-// echo Shell is: $SHELL
-// which secret-tool
-// which sfdx
-// '''
 
 // SF_AUTH_URL=sh "sfdx force:org:display -u sfdxdevelopment2020@gmail.com --verbose"
     // if ("${currentBuild.buildCauses}".contains("UserIdCause")) {
@@ -139,39 +127,12 @@ def authSF() {
     sh 'ls -l authjenkinsci.txt'
     sh 'cat authjenkinsci.txt'
     echo 'end sf auth method'
-//      if (isUnix()) {
 
-// sh '''
-// export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
-// echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
-// cd /var/lib/jenkins/workspace/multi_master
-//  sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a targetEnvironment
-//  sfdx force:org:list
-//  sfdx force:source:deploy --wait 10 --sourcepath /var/lib/jenkins/workspace/multi_master/force-app/main/default --testlevel NoTestRun -u targetEnvironment --json
-// echo Shell is: $SHELL
-// which secret-tool
-// which sfdx'''
-//      }
    
 }
 
 def command(script) {
    if (isUnix()) { 
-//        sh '''
-// export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
-// echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
-// '''
-
-// sh '''
-// export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
-// echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
-// cd /var/lib/jenkins/workspace/multi_master
-//  sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a targetEnvironment
-//  sfdx force:org:list
-//  sfdx force:source:deploy --wait 10 --sourcepath /var/lib/jenkins/workspace/multi_master/force-app/main/default --testlevel NoTestRun -u targetEnvironment --json
-// echo Shell is: $SHELL
-// which secret-tool
-// which sfdx'''
 
        return sh(returnStatus: true, script: script);
    } else {
