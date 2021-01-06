@@ -71,7 +71,7 @@ def salesforceDeploy() {
     def varsfdx='/sbin'
     TEST_LEVEL='NoTestRun'
     def VALIDATE_ONLY = false
-    def deployBranchURL = ""
+     deployBranchURL = ""
     if("${env.BRANCH_NAME}".contains("/")) {
         deployBranchURL = "${env.BRANCH_NAME}".replace("/", "_")
     }
