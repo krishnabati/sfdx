@@ -78,6 +78,9 @@ def salesforceDeploy() {
     def SF_INSTANCE_URL = "https://login.salesforce.com"
 targetEnvironment="vscodeaws"
 sh '''
+export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
+echo Above Set Value: $SFDX_USE_GENERIC_KEYCHAIN
+echo Shell is: $SHELL
 cd /var/lib/jenkins/workspace/multi_master
 sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a vscodeaws
 sfdx force:org:list
