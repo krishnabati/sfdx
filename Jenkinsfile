@@ -92,7 +92,7 @@ which sfdx
 cd /var/lib/jenkins/workspace/multi_master
 sfdx force:auth:sfdxurl:store -f authjenkinsci.txt -a vscodeaws
 sfdx force:org:list
-//  sfdx force:source:deploy --wait 10 --sourcepath /var/lib/jenkins/workspace/multi_master/force-app/main/default --testlevel NoTestRun -u vscodeaws --json
+sfdx force:source:deploy --wait 10 --sourcepath /var/lib/jenkins/workspace/multi_master/force-app/main/default --testlevel NoTestRun -u vscodeaws --json
  '''
 // targetEnvironment="vscodeOrg"
 // sh "cd /var/lib/jenkins/workspace/multi_${deployBranchURL}"
